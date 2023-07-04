@@ -1,3 +1,15 @@
+# v1.0.4 (Tue Jul 04 2023)
+
+#### ⚠️ Pushed to `main`
+
+- fix ts -> tsx (iamswain@hotmail.com)
+
+#### Authors: 1
+
+- swain (iamswain@hotmail.com)
+
+---
+
 # v1.0.3 (Tue Jul 04 2023)
 
 #### ⚠️ Pushed to `main`
