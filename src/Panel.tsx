@@ -1,35 +1,33 @@
-import React from "react";
-import { useAddonState, useChannel } from "@storybook/manager-api";
 import { AddonPanel } from "@storybook/components";
-import { ADDON_ID, EVENTS } from "./constants";
+import { useChannel } from "@storybook/manager-api";
+import React, { useState } from "react";
 import { PanelContent } from "./components/PanelContent";
+import { EVENTS } from "./constants";
 
 interface PanelProps {
   active: boolean;
 }
 
 export const Panel: React.FC<PanelProps> = (props) => {
-  // https://storybook.js.org/docs/react/addons/addons-api#useaddonstate
-  const [results, setState] = useAddonState(ADDON_ID, {
-    danger: [],
-    warning: [],
-  });
+  const [currentValues, setCurrentValues] = useState({});
+  const [initialValues, setInitialValues] = useState({});
 
-  // https://storybook.js.org/docs/react/addons/addons-api#usechannel
-  const emit = useChannel({
-    [EVENTS.RESULT]: (newResults) => setState(newResults),
+  const { RENDERED, ATOMS_CHANGED } = EVENTS;
+  useChannel({
+    [RENDERED]: (values) => {
+      setInitialValues(values);
+      setCurrentValues(values);
+    },
+    [ATOMS_CHANGED]: (values) => {
+      setCurrentValues(values);
+    },
   });
 
   return (
     <AddonPanel {...props}>
       <PanelContent
-        results={results}
-        fetchData={() => {
-          emit(EVENTS.REQUEST);
-        }}
-        clearData={() => {
-          emit(EVENTS.CLEAR);
-        }}
+        currentValues={currentValues}
+        initialValues={initialValues}
       />
     </AddonPanel>
   );
