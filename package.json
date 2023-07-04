@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-jotai",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "jotai wrapper for testing",
   "keywords": [
     "storybook-addons",
